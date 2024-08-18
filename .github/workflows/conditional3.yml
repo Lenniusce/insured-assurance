@@ -1,17 +1,18 @@
-name: Conditional Workflow Execution
-
+name: GitHub Actions Demo
+run-name: Testing out GitHub Actions Event Trigger
 on:
   push:
     branches:
-      - main
-      - feature/*
+      - master
+      - 'releases/**'
+
+  pull_request:
+    branches:
+    - master
+    - 'releases/**'
 
 jobs:
-  production-deploy:
-    if: startsWith(github.ref, 'refs/heads/feature/') || github.ref == 'refs/heads/main'
+  Basic-Workflow:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
+      - run: echo " Job is executing as part of Basic workflow"
